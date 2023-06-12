@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:motion="http://schemas.android.com/apk/res-auto">
+
+    <!-- Переход между состояниями от старта к финишу-->
+    <Transition
+        motion:autoTransition="animateToEnd"
+        motion:constraintSetEnd="@+id/end"
+        motion:constraintSetStart="@id/start"
+        motion:duration="5000">
+        <KeyFrameSet>
+            <!-- Задание траектории движения птицы-->
+            <KeyPosition
+                motion:motionTarget="@+id/bird"
+                motion:framePosition="49"
+                motion:keyPositionType="pathRelative"
+                motion:percentX="0.5"
+                motion:percentY="0.14" />
+            <!-- Задание траектории движения облака-->
+            <!-- framePosition - отсчёт времени в процентах-->
+            <!-- scaleX, scaleY - размеры изображения-->
+            <!-- alpha - видимость-->
+            <KeyAttribute
+                motion:motionTarget="@+id/cloud"
+                motion:framePosition="25"
+                android:scaleX="0.5"
+                android:scaleY="0.5" />
+            <KeyAttribute
+                motion:motionTarget="@+id/cloud"
+                motion:framePosition="25"
+                android:alpha="0.5"/>
+            <KeyAttribute
+                motion:motionTarget="@+id/cloud"
+                motion:framePosition="55"
+                android:alpha="0" />
+            <KeyAttribute
+                motion:motionTarget="@+id/cloud"
+                motion:framePosition="75"
+                android:alpha="0.8" />
+            <KeyAttribute
+                motion:motionTarget="@+id/cloud"
+                motion:framePosition="75"
+                android:scaleX="0.8"
+                android:scaleY="0.8" />
+        </KeyFrameSet>
+    </Transition>
+    <!-- Переход между состояниями от финиша к старту-->
+    <Transition
+        motion:autoTransition="animateToEnd"
+        motion:constraintSetEnd="@+id/start"
+        motion:constraintSetStart="@id/end"
+        motion:duration="5000"/>
+
+    <!-- Настройки описания состояния экрана старта-->
+    <ConstraintSet android:id="@+id/start">
+        <!-- Старт рисунка облака-->
+        <Constraint android:id="@+id/cloud">
+            <Layout
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                motion:layout_constraintLeft_toLeftOf="parent"
+                motion:layout_constraintBottom_toBottomOf="parent"
+                motion:layout_constraintTop_toTopOf="parent"/>
+        </Constraint>
+        <Constraint
+            motion:layout_editor_absoluteY="46dp"
+            android:layout_height="176dp"
+            motion:layout_editor_absoluteX="148dp"
+            android:layout_width="146dp"
+            android:id="@+id/imageView" />
+    </ConstraintSet>
+    <!-- Настройки описания состояния экрана финиша-->
+    <ConstraintSet android:id="@+id/end">
+        <!-- Финиш рисунка птицы-->
+        <Constraint android:id="@+id/bird">
+            <Layout
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                motion:layout_constraintBottom_toBottomOf="parent"/>
+        </Constraint>
+        <!-- Финиш рисунка облака-->
+        <Constraint android:id="@+id/cloud">
+            <Layout
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                motion:layout_constraintRight_toRightOf="parent"
+                motion:layout_constraintBottom_toBottomOf="parent"
+                motion:layout_constraintTop_toTopOf="parent"/>
+        </Constraint>
+        <Constraint
+            motion:layout_editor_absoluteY="525dp"
+            android:layout_height="176dp"
+            motion:layout_editor_absoluteX="148dp"
+            android:layout_width="146dp"
+            android:id="@+id/imageView" />
+    </ConstraintSet>
+</MotionScene>
